@@ -73,7 +73,7 @@ model = model.to(torch.bfloat16)
 model.load_state_dict(
     {
         name: (
-            torch.empty(param.shape, dtype=param.dtype, device="cpu")
+            torch.empty(param.shape, dtype=param.dtype, device="cuda:0")
             if param.device.type == "meta"
             else param
         )
@@ -85,7 +85,7 @@ model.load_state_dict(
 DFloat11Model.from_pretrained(
     model_path,
     bfloat16_model=model,
-    device="cpu",
+    device="cuda:0",
 )
 
 # Model Loading and Multi GPU Infernece Preparing
